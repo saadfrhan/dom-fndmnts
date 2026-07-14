@@ -1,28 +1,15 @@
+import { loadFromStorage, saveToStorage } from "./storage";
+import type { Contact } from "./types";
+
 const addInput = document.getElementById("add") as HTMLInputElement;
 const addButton = document.getElementById("add-button") as HTMLButtonElement;
 const searchInput = document.getElementById("search-input") as HTMLInputElement;
 const searchButton = document.getElementById("search-button") as HTMLButtonElement;
 
-interface Contact { id: number; name: string; }
 
 let contacts: Contact[] = loadFromStorage<Contact[]>("contacts", []);
 
-function saveToStorage(key: string, data: unknown): void {
-  const stringified = JSON.stringify(
-    data
-  )
-  localStorage.setItem(key, stringified)
-}
 
-function loadFromStorage<T>(key: string, fallback: T): T {
-  const readItem = localStorage.getItem(key)
-  if (!readItem) return fallback;
-  try {
-    return JSON.parse(readItem) as T
-  } catch (error) {
-    return fallback
-  }
-}
 
 function render(filterText: string = "") {
   const list = document.getElementById("contact-list")!;
