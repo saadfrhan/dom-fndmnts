@@ -1,30 +1,59 @@
 # DOM Fundamentals
 
-A simple Vite + TypeScript project that demonstrates basic DOM manipulation with a contact list.
+A minimal Vite + TypeScript demo showing basic DOM manipulation via a small contact list app.
 
-## Features
+## Quick Features
 
-- Display a list of contacts
-- Search contacts by name
+- List of contacts (rendered from `src/main.ts`)
 - Add new contacts
-- Remove contacts from the list
+- Remove contacts
+- Client-side search/filter
 
-## Getting Started
+## Prerequisites
 
-1. Install dependencies:
-   ```bash
-   pnpm install
-   ```
-2. Start the development server:
-   ```bash
-   pnpm dev
-   ```
-3. Open the local URL shown in the terminal.
+- Node.js (recommended v16+)
+- `pnpm` (optional — `npm` or `yarn` also work)
 
-## Build
+## Install
 
-To create a production build, run:
+Install dependencies:
+
+```bash
+pnpm install
+```
+
+Or with npm:
+
+```bash
+npm install
+```
+
+## Development
+
+Start the dev server (Vite):
+
+```bash
+pnpm dev
+```
+
+Open the local URL printed by Vite (usually http://localhost:5173).
+
+## Build & Preview
+
+Create a production build:
 
 ```bash
 pnpm build
 ```
+
+Preview the production build locally:
+
+```bash
+pnpm preview
+```
+
+## Project Structure
+
+- `index.html` — app entry
+- `src/main.ts` — DOM logic (add/search/remove contacts)
+- `package.json` — scripts and dev deps

@@ -5,10 +5,24 @@ const searchButton = document.getElementById("search-button") as HTMLButtonEleme
 
 interface Contact { id: number; name: string; }
 
-let contacts: Contact[] = [
-  { id: 1, name: "Makunouchi Ippo" },
-  { id: 2, name: "Mamoru Takamura" },
-];
+let contacts: Contact[] = loadFromStorage<Contact[]>("contacts", []);
+
+function saveToStorage(key: string, data: unknown): void {
+  const stringified = JSON.stringify(
+    data
+  )
+  localStorage.setItem(key, stringified)
+}
+
+function loadFromStorage<T>(key: string, fallback: T): T {
+  const readItem = localStorage.getItem(key)
+  if (!readItem) return fallback;
+  try {
+    return JSON.parse(readItem) as T
+  } catch (error) {
+    return fallback
+  }
+}
 
 function render(filterText: string = "") {
   const list = document.getElementById("contact-list")!;
@@ -22,6 +36,7 @@ function render(filterText: string = "") {
       del.textContent = "x";
       del.addEventListener("click", () => {
         contacts = contacts.filter(x => x.id !== c.id);
+        saveToStorage("contacts", contacts);
         render(filterText);
       });
       li.appendChild(del);
@@ -36,6 +51,7 @@ addButton.addEventListener("click", () => {
   if (name) {
     const newContact: Contact = { id: Date.now(), name };
     contacts.push(newContact);
+    saveToStorage("contacts", contacts);
     render(currentFilter);
   }
   addInput.value = "";
